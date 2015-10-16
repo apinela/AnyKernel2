@@ -3,7 +3,7 @@
 
 ## AnyKernel setup
 # EDIFY properties
-kernel.string=grouper-3.4-dev_sheffzor-scenne
+kernel.string=grouper-3.4-dev_sheffzor
 do.devicecheck=1
 do.initd=0
 do.modules=0
@@ -152,32 +152,6 @@ chmod -R 755 $ramdisk
 
 ## AnyKernel install
 dump_boot;
-
-# begin ramdisk changes
-	
-# init.grouper.rc
-backup_file init.grouper.rc;
-replace_line init.grouper.rc "/sys/module/cpu_tegra3/parameters/no_lp" "	write /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/no_lp 0";
-replace_line init.grouper.rc "/sys/module/cpu_tegra3/parameters/auto_hotplug" "	write /sys/devices/system/cpu/cpuquiet/tegra_cpuquiet/enable 1";
-replace_line init.grouper.rc "/sys/module/cpuidle/parameters/lp2_in_idle" "	write /sys/module/cpuidle/parameters/power_down_in_idle 0";
-insert_line init.grouper.rc "/sys/module/cpuidle/parameters/power_down_in_idle" after "/sys/module/cpuidle/parameters/power_down_in_idle" "	write /sys/devices/system/cpu/cpufreq/cpuload/enable 1";
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/boost_factor" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/core_lock_count" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/core_lock_period" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/input_boost"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/min_sample_time"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/max_boost" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/target_loads"
-replace_line init.grouper.rc "chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/sustain_load" "	chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/timer_rate"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/boost_factor" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/core_lock_count" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/go_hispeed_load"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/core_lock_period" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/hispeed_freq"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/go_maxspeed_load" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/input_boost"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/min_sample_time"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/max_boost" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/target_loads"
-replace_line init.grouper.rc "chown system system /sys/devices/system/cpu/cpufreq/interactive/sustain_load" "	chown system system /sys/devices/system/cpu/cpufreq/interactive/timer_rate"
-# end ramdisk changes
-
 write_boot;
-
 ## end install
 
